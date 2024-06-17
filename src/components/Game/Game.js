@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import Form from './NewsComponents/guessInput';
+import Answers from './NewsComponents/guessResult';
+import GuessInput from './NewsComponents/guessInput';
+import GuessResult from './NewsComponents/guessResult';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -9,7 +13,28 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  return <>Put a game here!</>;
+     const [guess, setGuess] = useState('');
+     const [allAnswers, setAllAnswers] = useState([]);
+
+
+     useEffect(() => {
+          if (guess === answer) {
+               console.log('good match');
+          }
+     }, [guess]);
+
+     return (
+          <>
+               <GuessResult guess={guess} answer={answer} allAnswers={allAnswers} />
+               <GuessInput
+                    guess={guess}
+                    setGuess={setGuess}
+                    setAllAnswers={setAllAnswers}
+                    allAnswers={allAnswers}
+                    
+               />
+          </>
+     );
 }
 
 export default Game;
